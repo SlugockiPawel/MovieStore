@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MovieStore.Models.Settings;
+using MovieStore.Services;
 
 namespace MovieStore
 {
@@ -35,7 +36,7 @@ namespace MovieStore
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("Postgres"));
+                    ConnectionService.GetConnectionString(Configuration));
             });
 
 
@@ -63,6 +64,7 @@ namespace MovieStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
