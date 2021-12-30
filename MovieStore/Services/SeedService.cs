@@ -43,5 +43,23 @@ namespace MovieStore.Services
             await _roleManager.CreateAsync(new IdentityRole(adminRole));
         }
 
+        private async Task SeedUsersAsync()
+        {
+            if (_userManager.Users.Any())
+                return;
+
+
+            var credentials = _appSettings.MovieStoreSettings.DefaultCredentials;
+            var newUser = new IdentityUser()
+            {
+                Email = credentials.Email,
+                UserName = credentials.Email,
+                EmailConfirmed = true
+            };
+
+            await _userManager.CreateAsync(newUser, credentials.Password);
+            await _userManager.AddToRoleAsync(newUser, credentials.Role);
+        }
+
     }
 }
