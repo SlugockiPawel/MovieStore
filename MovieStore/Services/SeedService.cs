@@ -61,5 +61,18 @@ namespace MovieStore.Services
             await _userManager.AddToRoleAsync(newUser, credentials.Role);
         }
 
+        private async Task SeedCollectionsAsync()
+        {
+            if (_dbContext.Collections.Any())
+                return;
+
+            await _dbContext.Collections.AddAsync(new Collection()
+            {
+                Name = _appSettings.MovieStoreSettings.DefaultCollection.Name,
+                Description = _appSettings.MovieStoreSettings.DefaultCollection.Description
+            });
+
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
