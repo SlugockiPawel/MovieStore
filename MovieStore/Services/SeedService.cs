@@ -25,6 +25,13 @@ namespace MovieStore.Services
             _appSettings = appSettings.Value;
         }
 
+        public async Task ManageDataAsync()
+        {
+            await UpdateDatabaseAsync();
+            await SeedRoleAsync();
+            await SeedUsersAsync();
+            await SeedCollectionsAsync();
+        }
 
         private async Task UpdateDatabaseAsync()
         {
