@@ -25,5 +25,11 @@ namespace MovieStore.Services
             _appSettings = appSettings.Value;
         }
 
+
+        private async Task UpdateDatabaseAsync()
+        {
+            await _dbContext.Database.MigrateAsync();
+        }
+
     }
 }
