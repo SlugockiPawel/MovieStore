@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +17,7 @@ namespace MovieStore.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public SeedService(IOptions<AppSettings> appSettings, ApplicationDbContext dbContext,
-            UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public SeedService(IOptions<AppSettings> appSettings, ApplicationDbContext dbContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
@@ -43,9 +43,7 @@ namespace MovieStore.Services
             if (_dbContext.Roles.Any())
                 return;
 
-
             var adminRole = _appSettings.MovieStoreSettings.DefaultCredentials.Role;
-
 
             await _roleManager.CreateAsync(new IdentityRole(adminRole));
         }
