@@ -11,5 +11,19 @@ namespace MovieStore.Services
 {
     public class SeedService
     {
+        private readonly AppSettings _appSettings;
+        private readonly ApplicationDbContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public SeedService(IOptions<AppSettings> appSettings, ApplicationDbContext dbContext,
+            UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            _dbContext = dbContext;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _appSettings = appSettings.Value;
+        }
+
     }
 }
