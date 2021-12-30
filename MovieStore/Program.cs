@@ -6,14 +6,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using MovieStore.Services;
 
 namespace MovieStore
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            var dataService = host.Services
+                .CreateScope()
+                .ServiceProvider
+                .GetRequiredService<SeedService>();
+
+            await dataService.ManageDataAsync();
+
+            await host.RunAsync();
+            // CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
