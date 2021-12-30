@@ -31,5 +31,17 @@ namespace MovieStore.Services
             await _dbContext.Database.MigrateAsync();
         }
 
+        private async Task SeedRoleAsync()
+        {
+            if (_dbContext.Roles.Any())
+                return;
+
+
+            var adminRole = _appSettings.MovieStoreSettings.DefaultCredentials.Role;
+
+
+            await _roleManager.CreateAsync(new IdentityRole(adminRole));
+        }
+
     }
 }
