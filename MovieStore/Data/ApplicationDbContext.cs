@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MovieStore.Models.Database;
 
 namespace MovieStore.Data
 {
@@ -12,5 +13,7 @@ namespace MovieStore.Data
             : base(options)
         {
         }
+
+        public DbSet<Collection> Collections { get; set; }
     }
 }
