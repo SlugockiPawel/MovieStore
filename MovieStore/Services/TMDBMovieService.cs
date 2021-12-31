@@ -26,7 +26,7 @@ namespace MovieStore.Services
 
         public async Task<MovieDetail> MovieDetailAsync(int id)
         {
-            // Setup a default instance of MovieSearch
+            // Setup a default instance of MovieDetail
             MovieDetail movieDetail = new();
 
             // Assemble full request uri string
@@ -94,9 +94,36 @@ namespace MovieStore.Services
             return movieSearch;
         }
 
-        public Task<ActorDetail> ActorDetailAsync(int id)
+        public async Task<ActorDetail> ActorDetailAsync(int id)
         {
-            throw new System.NotImplementedException();
+            // Setup a default instance of ActorDetail
+            ActorDetail actorDetail = new();
+
+            // Assemble full request uri string
+            var query = $"{_appSettings.TMDBSettings.BaseUrl}/person/{id}";
+
+            var queryParams = new Dictionary<string, string>()
+            {
+                { "api_key", _appSettings.MovieStoreSettings.TmDbApiKey },
+                { "language", _appSettings.TMDBSettings.QueryOptions.Language },
+            };
+
+            var requestUri = QueryHelpers.AddQueryString(query, queryParams);
+
+            // Create a client and execute the request
+            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            var response = await client.SendAsync(request);
+
+            // Deserialize into MovieDetail
+            if (response.IsSuccessStatusCode)
+            {
+                var dcjs = new DataContractJsonSerializer(typeof(ActorDetail));
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                actorDetail = dcjs.ReadObject(responseStream) as ActorDetail;
+            }
+
+            return actorDetail;
         }
     }
 }
