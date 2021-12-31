@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
@@ -23,9 +24,37 @@ namespace MovieStore.Services
             _appSettings = appSettings.Value;
         }
 
-        public Task<MovieDetail> MovieDetailAsync(int id)
+        public async Task<MovieDetail> MovieDetailAsync(int id)
         {
-            throw new System.NotImplementedException();
+            // Setup a default instance of MovieSearch
+            MovieDetail movieDetail = new();
+
+            // Assemble full request uri string
+            var query = $"{_appSettings.TMDBSettings.BaseUrl}/movie/{id}";
+
+            var queryParams = new Dictionary<string, string>()
+            {
+                { "api_key", _appSettings.MovieStoreSettings.TmDbApiKey },
+                { "language", _appSettings.TMDBSettings.QueryOptions.Language },
+                { "append_to_response", _appSettings.TMDBSettings.QueryOptions.AppendToResponse }
+            };
+
+            var requestUri = QueryHelpers.AddQueryString(query, queryParams);
+
+            // Create a client and execute the request
+            var client = _httpClientFactory.CreateClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            var response = await client.SendAsync(request);
+
+            // Deserialize into MovieDetail
+            if (response.IsSuccessStatusCode)
+            {
+                var dcjs = new DataContractJsonSerializer(typeof(MovieDetail));
+                await using var responseStream = await response.Content.ReadAsStreamAsync();
+                movieDetail = dcjs.ReadObject(responseStream) as MovieDetail;
+            }
+
+            return movieDetail;
         }
 
         public async Task<MovieSearch> SearchMovieAsync(MovieCategory category, int count)
@@ -57,7 +86,9 @@ namespace MovieStore.Services
                 await using var responseStream = await response.Content.ReadAsStreamAsync();
                 movieSearch = (MovieSearch)dcjs.ReadObject(responseStream);
                 movieSearch.results = movieSearch.results.Take(count).ToArray();
-                movieSearch.results.ToList().ForEach(r => r.poster_path = $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieStoreSettings.DefaultPosterSize}/{r.poster_path}");
+                movieSearch.results.ToList().ForEach(r =>
+                    r.poster_path =
+                        $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieStoreSettings.DefaultPosterSize}/{r.poster_path}");
             }
 
             return movieSearch;
