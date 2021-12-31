@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MovieStore.Models.Settings;
 using MovieStore.Services;
+using MovieStore.Services.Interfaces;
 
 namespace MovieStore
 {
@@ -52,6 +53,7 @@ namespace MovieStore
 
             services.AddTransient<SeedService>();
             services.AddHttpClient();
+            services.AddScoped<IRemoteMovieService, TMDBMovieService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
