@@ -21,7 +21,25 @@ namespace MovieStore.Services
 
         public ActorDetail MapActorDetail(ActorDetail actor)
         {
-            throw new System.NotImplementedException();
+           // Image
+           actor.profile_path = BuildCastImage(actor.profile_path);
+
+           // Bio
+           if (string.IsNullOrWhiteSpace(actor.biography))
+               actor.biography = "Not Available";
+
+           // Place of birth
+           if (string.IsNullOrWhiteSpace(actor.place_of_birth))
+               actor.place_of_birth = "Not Available";
+
+            // Birthday
+            if (string.IsNullOrWhiteSpace(actor.birthday))
+                actor.birthday = "Not Available";
+            else
+                actor.birthday = DateTime.Parse(actor.birthday).ToString("MMM dd, yyyy");
+
+            return actor;
+        }
 
         private string BuildTrailerPath(Videos videos)
         {
