@@ -15,9 +15,14 @@ namespace MovieStore.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public Task<byte[]> EncodeImageAsync(IFormFile poster)
+        public async Task<byte[]> EncodeImageAsync(IFormFile poster)
         {
-            throw new System.NotImplementedException();
+            if (poster is null)
+                return null;
+
+            await using var ms = new MemoryStream();
+            await poster.CopyToAsync(ms);
+            return ms.ToArray();
         }
 
         public async Task<byte[]> EncodeImageUrlAsync(string imageUrl)
