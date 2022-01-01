@@ -31,6 +31,13 @@ namespace MovieStore.Services
                 : $"{_appSettings.TMDBSettings.BaseYouTubePath}{videoKey}";
         }
 
+        private string BuildCastImage(string profilePath)
+        {
+            if (string.IsNullOrWhiteSpace(profilePath))
+                return _appSettings.MovieStoreSettings.DefaultCastImage;
+
+            return
+                $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieStoreSettings.DefaultPosterSize}/{profilePath}";
         }
     }
 }
