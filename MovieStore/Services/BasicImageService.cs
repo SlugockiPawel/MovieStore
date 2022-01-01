@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MovieStore.Services.Interfaces;
@@ -19,9 +20,17 @@ namespace MovieStore.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<byte[]> EncodeImageUrlAsync(string imageUrl)
+        public async Task<byte[]> EncodeImageUrlAsync(string imageUrl)
         {
-            throw new System.NotImplementedException();
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(imageUrl);
+
+            await using var stream = await response.Content.ReadAsStreamAsync();
+
+            var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+
+            return ms.ToArray();
         }
 
         public string DecodeImage(byte[] poster, string contentType)
