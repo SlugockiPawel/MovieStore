@@ -14,10 +14,84 @@ namespace MovieStore.Services
 {
     public class TMDBMappingService : IDataMappingService
     {
-        public Task<Movie> MapMovieDetailAsync(MovieDetail movie)
+        private readonly AppSettings _appSettings;
+        private readonly IImageService _imageService;
+
+        public TMDBMappingService(IOptions<AppSettings> appSettings, IImageService imageService)
         {
-            throw new System.NotImplementedException();
+            _appSettings = appSettings.Value;
+            _imageService = imageService;
         }
+
+        public async Task<Movie> MapMovieDetailAsync(MovieDetail movie)
+        {
+            Movie newMovie = null;
+
+            try
+            {
+                newMovie = new Movie()
+                {
+                    MovieId = movie.id,
+                    Title = movie.title,
+                    TagLine = movie.tagline,
+                    Overview = movie.overview,
+                    RunTime = movie.runtime,
+                    VoteAverage = movie.vote_average,
+                    ReleaseDate = DateTime.Parse(movie.release_date),
+                    TrailerUrl = BuildTrailerPath(movie.videos),
+                    BackDrop = await EncodeBackdropImageAsync(movie.backdrop_path),
+                    BackdropType = BuildImageType(movie.backdrop_path),
+                    Poster = await EncodePosterImageAsync(movie.poster_path),
+                    PosterType = BuildImageType(movie.poster_path),
+                    Rating = GetRating(movie.release_dates),
+                };
+
+                var castMembers = movie.credits.cast
+                    .OrderByDescending(c => c.popularity)
+                    .GroupBy(c => c.cast_id)
+                    .Select(g => g.FirstOrDefault())
+                    .Take(20)
+                    .ToList();
+
+                castMembers.ForEach(member =>
+                {
+                    newMovie.Cast.Add(new MovieCast()
+                    {
+                        CastID = member.id,
+                        Department = member.known_for_department,
+                        Name = member.name,
+                        Character = member.character,
+                        ImageUrl = BuildCastImage(member.profile_path),
+                    });
+                });
+
+                var crewMembers = movie.credits.crew
+                    .OrderByDescending(c => c.popularity)
+                    .GroupBy(c => c.id)
+                    .Select(g => g.First())
+                    .Take(20)
+                    .ToList();
+
+                crewMembers.ForEach(member =>
+                {
+                    newMovie.Crew.Add(new MovieCrew()
+                    {
+                        CrewID = member.id,
+                        Department = member.department,
+                        Name = member.name,
+                        Job = member.job,
+                        ImageUrl = BuildCastImage(member.profile_path),
+                    });
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception in MapMovieDetailAsync: {e.Message}");
+            }
+
+            return newMovie;
+        }
+
 
         public ActorDetail MapActorDetail(ActorDetail actor)
         {
