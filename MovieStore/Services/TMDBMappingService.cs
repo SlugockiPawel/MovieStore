@@ -31,6 +31,25 @@ namespace MovieStore.Services
                 : $"{_appSettings.TMDBSettings.BaseYouTubePath}{videoKey}";
         }
 
+        private async Task<byte[]> EncodeBackdropImageAsync(string path)
+        {
+            var backdropPath =
+                $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieStoreSettings.DefaultBackdropSize}/{path}";
+            return await _imageService.EncodeImageUrlAsync(backdropPath);
+        }
+
+        private static string BuildImageType(string path)
+        {
+            return string.IsNullOrWhiteSpace(path) ? path : $"image/{Path.GetExtension(path).TrimStart('.')}";
+        }
+
+        private async Task<byte[]> EncodePosterImageAsync(string path)
+        {
+            var posterPath =
+                $"{_appSettings.TMDBSettings.BaseImagePath}/{_appSettings.MovieStoreSettings.DefaultPosterSize}/{path}";
+            return await _imageService.EncodeImageUrlAsync(posterPath);
+        }
+
         private MovieRating GetRating(Release_Dates dates)
         {
             var movieRating = MovieRating.NR;
