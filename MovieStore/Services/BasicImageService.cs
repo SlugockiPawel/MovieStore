@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using MovieStore.Data;
 using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Services
@@ -40,7 +42,9 @@ namespace MovieStore.Services
 
         public string DecodeImage(byte[] poster, string contentType)
         {
-            throw new System.NotImplementedException();
+            if (poster is null) return null;
+            var posterImage = Convert.ToBase64String(poster);
+            return $"data:{contentType};base64,{posterImage}";
         }
     }
 }
