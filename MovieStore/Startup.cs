@@ -55,6 +55,7 @@ namespace MovieStore
             services.AddHttpClient();
             services.AddScoped<IRemoteMovieService, TMDBMovieService>();
             services.AddScoped<IDataMappingService, TMDBMappingService>();
+            services.AddSingleton<IImageService, BasicImageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
