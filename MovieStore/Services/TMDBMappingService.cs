@@ -31,6 +31,24 @@ namespace MovieStore.Services
                 : $"{_appSettings.TMDBSettings.BaseYouTubePath}{videoKey}";
         }
 
+        private MovieRating GetRating(Release_Dates dates)
+        {
+            var movieRating = MovieRating.NR;
+            var certification = dates.results.FirstOrDefault(r => r.iso_3166_1 == "US");
+            if (certification is not null)
+            {
+                var apiRating = certification.release_dates.FirstOrDefault(c => c.certification != "")?.certification
+                    .Replace("-", "");
+
+                if (!string.IsNullOrWhiteSpace(apiRating))
+                {
+                    movieRating = (MovieRating)Enum.Parse(typeof(MovieRating), apiRating, true);
+                }
+            }
+
+            return movieRating;
+        }
+
         private string BuildCastImage(string profilePath)
         {
             if (string.IsNullOrWhiteSpace(profilePath))
