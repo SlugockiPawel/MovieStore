@@ -23,7 +23,7 @@ namespace MovieStore.Models.Database
 
         public MovieRating Rating { get; set; }
 
-        public float RateAverage { get; set; }
+        public float VoteAverage { get; set; }
         
         public byte[] Poster { get; set; }
         public string PosterType { get; set; }
