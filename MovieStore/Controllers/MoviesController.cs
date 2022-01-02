@@ -23,6 +23,27 @@ namespace MovieStore.Controllers
 
         {
             return View();
+        private async Task AddToMovieCollection(int movieId, string collectionName)
+        {
+            var collection = await _context.Collections.FirstOrDefaultAsync(c => c.Name == collectionName);
+            _context.Add(new MovieCollection()
+                {
+                    CollectionId = collection.Id,
+                    MovieId = movieId,
+                }
+            );
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task AddToMovieCollection(int movieId, int collectionId)
+        {
+            _context.Add(new MovieCollection()
+                {
+                    CollectionId = collectionId,
+                    MovieId = movieId,
+                }
+            );
+            await _context.SaveChangesAsync();
         }
     }
 }
