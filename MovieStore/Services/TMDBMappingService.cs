@@ -39,7 +39,7 @@ namespace MovieStore.Services
                     VoteAverage = movie.vote_average,
                     ReleaseDate = DateTime.Parse(movie.release_date),
                     TrailerUrl = BuildTrailerPath(movie.videos),
-                    BackDrop = await EncodeBackdropImageAsync(movie.backdrop_path),
+                    Backdrop = await EncodeBackdropImageAsync(movie.backdrop_path),
                     BackdropType = BuildImageType(movie.backdrop_path),
                     Poster = await EncodePosterImageAsync(movie.poster_path),
                     PosterType = BuildImageType(movie.poster_path),

@@ -27,7 +27,7 @@ namespace MovieStore.Models.Database
         
         public byte[] Poster { get; set; }
         public string PosterType { get; set; }
-        public byte[] BackDrop { get; set; }
+        public byte[] Backdrop { get; set; }
         public string BackdropType { get; set; }
         public string TrailerUrl { get; set; }
 
