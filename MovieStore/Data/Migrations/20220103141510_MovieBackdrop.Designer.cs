@@ -10,15 +10,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MovieStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211230155432_Collection")]
-    partial class Collection
+    [Migration("20220103141510_MovieBackdrop")]
+    partial class MovieBackdrop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -262,9 +262,6 @@ namespace MovieStore.Data.Migrations
                     b.Property<string>("PosterType")
                         .HasColumnType("text");
 
-                    b.Property<float>("RateAverage")
-                        .HasColumnType("real");
-
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
@@ -283,9 +280,12 @@ namespace MovieStore.Data.Migrations
                     b.Property<string>("TrailerUrl")
                         .HasColumnType("text");
 
+                    b.Property<float>("VoteAverage")
+                        .HasColumnType("real");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Movie");
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("MovieStore.Models.Database.MovieCast", b =>

@@ -244,7 +244,7 @@ namespace MovieStore.Data.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<byte[]>("BackDrop")
+                    b.Property<byte[]>("Backdrop")
                         .HasColumnType("bytea");
 
                     b.Property<string>("BackdropType")
