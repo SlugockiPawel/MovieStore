@@ -5,18 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MovieStore.Data;
 using MovieStore.Models.Database;
+using MovieStore.Models.Settings;
 
 namespace MovieStore.Controllers
 {
     public class CollectionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AppSettings _appSettings;
 
-        public CollectionsController(ApplicationDbContext context)
+        public CollectionsController(ApplicationDbContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
         }
 
         // GET: Collections
