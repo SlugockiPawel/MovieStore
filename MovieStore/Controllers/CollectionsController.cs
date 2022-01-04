@@ -115,6 +115,11 @@ namespace MovieStore.Controllers
                 return NotFound();
             }
 
+            if (collection.Name == _appSettings.MovieStoreSettings.DefaultCollection.Name)
+            {
+                return RedirectToAction("Index", "Collections");
+            }
+
             return View(collection);
         }
 
@@ -126,7 +131,7 @@ namespace MovieStore.Controllers
             var collection = await _context.Collections.FindAsync(id);
             _context.Collections.Remove(collection);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "MovieCollections");
         }
 
         private bool CollectionExists(int id)
