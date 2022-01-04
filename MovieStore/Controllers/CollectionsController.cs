@@ -76,6 +76,11 @@ namespace MovieStore.Controllers
             {
                 try
                 {
+                    if (collection.Name == _appSettings.MovieStoreSettings.DefaultCollection.Name)
+                    {
+                        return RedirectToAction("Index", "Collections");
+                    }
+
                     _context.Update(collection);
                     await _context.SaveChangesAsync();
                 }
