@@ -26,31 +26,10 @@ namespace MovieStore.Controllers
         // GET: Collections
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Collections.ToListAsync());
-        }
+            var defaultCollectionName = _appSettings.MovieStoreSettings.DefaultCollection.Name;
+            var collections = await _context.Collections.Where(c => c.Name != defaultCollectionName).ToListAsync();
 
-        // GET: Collections/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var collection = await _context.Collections
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (collection == null)
-            {
-                return NotFound();
-            }
-
-            return View(collection);
-        }
-
-        // GET: Collections/Create
-        public IActionResult Create()
-        {
-            return View();
+            return View(collections);
         }
 
         // POST: Collections/Create
