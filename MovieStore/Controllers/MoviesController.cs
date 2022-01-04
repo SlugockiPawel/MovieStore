@@ -106,6 +106,72 @@ namespace MovieStore.Controllers
             return View(movie);
         }
 
+        // GET: Temp/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return View(movie);
+        }
+
+        // POST: Temp/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id,
+            [Bind(
+                "Id,MovieId,Title,TagLine,Overview,RunTime,ReleaseDate,Rating,VoteAverage,Poster,PosterType,Backdrop,BackdropType,TrailerUrl")]
+            Movie movie)
+        {
+            if (id != movie.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (movie.PosterFile is not null)
+                    {
+                        movie.PosterType = movie.PosterFile?.ContentType;
+                        movie.Poster = await _imageService.EncodeImageAsync(movie.PosterFile);
+                    }
+
+                    if (movie.BackdropFile is not null)
+                    {
+                        movie.BackdropType = movie.BackdropFile?.ContentType;
+                        movie.Backdrop = await _imageService.EncodeImageAsync(movie.BackdropFile);
+                    }
+
+                    _context.Update(movie);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movie.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction("Details", "Movies", new { id = movie.Id, local = true });
+            }
+
             return View(movie);
         }
 
