@@ -19,7 +19,8 @@ namespace MovieStore.Controllers
         private readonly IRemoteMovieService _tmdbMovieService;
         private readonly IDataMappingService _tmdbMappingService;
 
-        public MoviesController(IOptions<AppSettings> appSettings, ApplicationDbContext context, IImageService imageService,
+        public MoviesController(IOptions<AppSettings> appSettings, ApplicationDbContext context,
+            IImageService imageService,
             IRemoteMovieService tmdbMovieService, IDataMappingService tmdbMappingService)
         {
             _appSettings = appSettings.Value;
@@ -81,7 +82,10 @@ namespace MovieStore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,Title,TagLine,Overview,RunTime,ReleaseDate,Rating,VoteAverage,Poster,PosterType,Backdrop,BackdropType,TrailerUrl")] Movie movie, int collectionId)
+        public async Task<IActionResult> Create(
+            [Bind(
+                "Id,MovieId,Title,TagLine,Overview,RunTime,ReleaseDate,Rating,VoteAverage,Poster,PosterType,Backdrop,BackdropType,TrailerUrl")]
+            Movie movie, int collectionId)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +102,10 @@ namespace MovieStore.Controllers
 
                 return RedirectToAction("Index", "MovieCollections");
             }
+
+            return View(movie);
+        }
+
             return View(movie);
         }
 
