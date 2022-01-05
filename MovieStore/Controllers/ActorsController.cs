@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Controllers
@@ -14,9 +15,11 @@ namespace MovieStore.Controllers
             _mappingService = mappingService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var actor = await _tmdbMovieService.ActorDetailAsync(id);
+            actor = _mappingService.MapActorDetail(actor);
+            return View(actor);
         }
     }
 }
