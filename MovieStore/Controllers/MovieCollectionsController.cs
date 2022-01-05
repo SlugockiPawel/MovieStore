@@ -18,16 +18,16 @@ namespace MovieStore.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? collectionId)
         {
-            id ??= (await _context.Collections.FirstOrDefaultAsync(c => c.Name.ToUpper() == "ALL")).Id;
+            collectionId ??= (await _context.Collections.FirstOrDefaultAsync(c => c.Name.ToUpper() == "ALL")).Id;
 
-            ViewData["CollectionId"] = new SelectList(_context.Collections, "Id", "Name", id);
+            ViewData["CollectionId"] = new SelectList(_context.Collections, "Id", "Name", collectionId);
 
             var allMoviesIds = await _context.Movies.Select(m => m.Id).ToListAsync();
 
             var moviesIdsInCollection = await _context.MovieCollections
-                .Where(m => m.CollectionId == id)
+                .Where(m => m.CollectionId == collectionId)
                 .OrderBy(m => m.Order)
                 .Select(m => m.MovieId)
                 .ToListAsync();
@@ -44,8 +44,35 @@ namespace MovieStore.Controllers
 
             ViewData["IdsNotInCollection"] = new MultiSelectList(moviesNotInCollection, "Id", "Title");
 
-
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(int collectionId, List<int> idsInCollection)
+        {
+            var oldRecords = _context.MovieCollections.Where(mc => mc.CollectionId == collectionId);
+            _context.MovieCollections.RemoveRange(oldRecords);
+            await _context.SaveChangesAsync();
+
+            if (idsInCollection is not null)
+            {
+                int index = 1;
+                idsInCollection.ForEach(movieId =>
+                {
+                    // TODO debug this code to understand it properly
+                    _context.Add(new MovieCollection()
+                    {
+                        CollectionId = collectionId,
+                        MovieId = movieId,
+                        Order = index++,
+                    });
+                });
+
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index), new { collectionId });
         }
     }
 }
