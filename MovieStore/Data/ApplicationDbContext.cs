@@ -16,5 +16,6 @@ namespace MovieStore.Data
 
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieCollection> MovieCollections { get; set; }
     }
 }
