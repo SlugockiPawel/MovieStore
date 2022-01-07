@@ -18,13 +18,13 @@ namespace MovieStore.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-        private readonly IRemoteMovieService _tmdMovieService;
+        private readonly IRemoteMovieService _tmdbMovieService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IRemoteMovieService tmdMovieService)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IRemoteMovieService tmdbMovieService)
         {
             _logger = logger;
             _context = context;
-            _tmdMovieService = tmdMovieService;
+            _tmdbMovieService = tmdbMovieService;
         }
 
         public async Task<IActionResult> Index()
@@ -36,11 +36,11 @@ namespace MovieStore.Controllers
                     .Include(c => c.MovieCollections)
                     .ThenInclude(mc => mc.Movie)
                     .ToListAsync(),
-
-                NowPlaying = await _tmdMovieService.SearchMovieAsync(MovieCategory.now_playing, count),
-                Popular = await _tmdMovieService.SearchMovieAsync(MovieCategory.popular, count),
-                TopRated = await _tmdMovieService.SearchMovieAsync(MovieCategory.top_rated, count),
-                Upcoming = await _tmdMovieService.SearchMovieAsync(MovieCategory.upcoming, count),
+            
+                NowPlaying = await _tmdbMovieService.SearchMovieAsync(MovieCategory.now_playing, count),
+                Popular = await _tmdbMovieService.SearchMovieAsync(MovieCategory.popular, count),
+                TopRated = await _tmdbMovieService.SearchMovieAsync(MovieCategory.top_rated, count),
+                Upcoming = await _tmdbMovieService.SearchMovieAsync(MovieCategory.upcoming, count),
             };
 
             return View(data);
