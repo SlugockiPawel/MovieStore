@@ -54,7 +54,7 @@ namespace MovieStore.Controllers
             var movie = await _tmdbMappingService.MapMovieDetailAsync(movieDetail);
 
             // Add movie to the database
-            await _context.Movies.AddAsync(movie); // _context.Add(movie) ?  TODO CHECK WHAT IS A DIFFERENCE!
+            await _context.Movies.AddAsync(movie); // _context.Add(movie)
             await _context.SaveChangesAsync();
 
             // Assign the movie to the default 'All' collection
