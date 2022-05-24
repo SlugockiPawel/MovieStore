@@ -7,7 +7,7 @@
 <style>
     .clampOverview {
         display: -webkit-box;
-        -webkit-line-clamp: 5;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -24,7 +24,7 @@
 
 <section class="">
     <div class="row">
-        <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">UPCOMING</span>
+        <span class="btn btn-lg btn-block btn-secondary font-weight-bolder border-dark">UPCOMING</span>
     </div>
     <div class="row">
         <div class="carousel slide" data-ride="carousel">
@@ -39,7 +39,7 @@
                             <div class="row card-group">
                                 @foreach (var movie in Model.Upcoming.results.Skip(slide * 4).Take(4))
                                 {
-                                    <div class="col-sm-6 col-md-3 mb-2">
+                                    <div class="col-sm-6 col-lg-3 mb-2">
                                         <div class="card" style="width: 100%;">
                                             <img src="@movie.poster_path" class="card-img-top img-fluid" alt="@movie.title poster"/>
                                             <div class="card-body">
@@ -64,7 +64,7 @@
 
 <section class="mt-3">
     <div class="row">
-        <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">NOW PLAYING</span>
+        <span class="btn btn-lg btn-block btn-secondary font-weight-bolder border-dark">NOW PLAYING</span>
     </div>
     <div class="row">
         <div class="carousel slide" data-ride="carousel">
@@ -79,7 +79,7 @@
                                                             <div class="row card-group">
                                                                 @foreach (var movie in Model.NowPlaying.results.Skip(slide * 4).Take(4))
                                     {
-                                                                    <div class="col-sm-3 mb-2">
+                                                                    <div class="col-sm-6 col-lg-3 mb-2">
                                                                         <div class="card" style="width: 100%;">
                                                                             <img src="@movie.poster_path" class="card-img-top img-fluid" alt="@movie.title poster"/>
                                                                             <div class="card-body">
@@ -105,7 +105,7 @@
 
 <section class="mt-3">
     <div class="row">
-        <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">POPULAR</span>
+        <span class="btn btn-lg btn-block btn-secondary font-weight-bolder border-dark">POPULAR</span>
     </div>
     <div class="row">
         <div class="carousel slide" data-ride="carousel">
@@ -120,7 +120,7 @@
                                                             <div class="row card-group">
                                                                 @foreach (var movie in Model.Popular.results.Skip(slide * 4).Take(4))
                                     {
-                                                                    <div class="col-sm-3 mb-2">
+                                                                    <div class="col-sm-6 col-lg-3 mb-2">
                                                                         <div class="card" style="width: 100%;">
                                                                             <img src="@movie.poster_path" class="card-img-top img-fluid" alt="@movie.title poster"/>
                                                                             <div class="card-body">
@@ -146,7 +146,7 @@
 
 <section class="mt-3">
     <div class="row">
-        <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">TOP RATED</span>
+        <span class="btn btn-lg btn-block btn-secondary font-weight-bolder border-dark">TOP RATED</span>
     </div>
     <div class="row">
         <div class="carousel slide" data-ride="carousel">
@@ -161,7 +161,7 @@
                                                             <div class="row card-group">
                                                                 @foreach (var movie in Model.TopRated.results.Skip(slide * 4).Take(4))
                                     {
-                                                                    <div class="col-sm-3 mb-2">
+                                                                    <div class="col-sm-6 col-lg-3 mb-2">
                                                                         <div class="card" style="width: 100%;">
                                                                             <img src="@movie.poster_path" class="card-img-top img-fluid" alt="@movie.title poster"/>
                                                                             <div class="card-body">
