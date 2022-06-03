@@ -238,7 +238,7 @@ namespace MovieStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collections");
+                    b.ToTable("Collections", (string)null);
                 });
 
             modelBuilder.Entity("MovieStore.Models.Database.Movie", b =>
@@ -290,7 +290,7 @@ namespace MovieStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("MovieStore.Models.Database.MovieCast", b =>
@@ -323,7 +323,7 @@ namespace MovieStore.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCast");
+                    b.ToTable("MovieCast", (string)null);
                 });
 
             modelBuilder.Entity("MovieStore.Models.Database.MovieCollection", b =>
@@ -349,7 +349,7 @@ namespace MovieStore.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCollections");
+                    b.ToTable("MovieCollections", (string)null);
                 });
 
             modelBuilder.Entity("MovieStore.Models.Database.MovieCrew", b =>
@@ -382,7 +382,7 @@ namespace MovieStore.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCrew");
+                    b.ToTable("MovieCrew", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
