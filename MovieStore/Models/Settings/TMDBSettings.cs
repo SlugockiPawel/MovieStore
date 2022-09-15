@@ -1,6 +1,6 @@
 ﻿namespace MovieStore.Models.Settings
 {
-    public class TMDBSettings
+    public sealed class TMDBSettings
     {
         public string BaseUrl { get; set; }
         public string BaseImagePath { get; set; }
@@ -8,7 +8,7 @@
         public QueryOptions QueryOptions { get; set; }
     }
 
-    public class QueryOptions   
+    public sealed class QueryOptions   
     {
         public string Language { get; set; }
         public string AppendToResponse { get; set; }

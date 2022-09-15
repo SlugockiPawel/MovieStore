@@ -3,7 +3,7 @@
 namespace MovieStore.Models.TMDB
 {
 
-    public class MovieDetail
+    public sealed class MovieDetail
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
@@ -36,7 +36,7 @@ namespace MovieStore.Models.TMDB
         public Release_Dates release_dates { get; set; }
     }
 
-    public class Belongs_To_Collection
+    public sealed class Belongs_To_Collection
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -44,13 +44,13 @@ namespace MovieStore.Models.TMDB
         public string backdrop_path { get; set; }
     }
 
-    public class Credits
+    public sealed class Credits
     {
         public Cast[] cast { get; set; }
         public Crew[] crew { get; set; }
     }
 
-    public class Cast
+    public sealed class Cast
     {
         public bool adult { get; set; }
         public int gender { get; set; }
@@ -66,7 +66,7 @@ namespace MovieStore.Models.TMDB
         public int order { get; set; }
     }
 
-    public class Crew
+    public sealed class Crew
     {
         public bool adult { get; set; }
         public int gender { get; set; }
@@ -81,19 +81,19 @@ namespace MovieStore.Models.TMDB
         public string job { get; set; }
     }
 
-    public class Images
+    public sealed class Images
     {
         public object[] backdrops { get; set; }
         public object[] logos { get; set; }
         public object[] posters { get; set; }
     }
 
-    public class Videos
+    public sealed class Videos
     {
         public VideoResult[] results { get; set; }
     }
 
-    public class VideoResult
+    public sealed class VideoResult
     {
         public string iso_639_1 { get; set; }
         public string iso_3166_1 { get; set; }
@@ -107,18 +107,18 @@ namespace MovieStore.Models.TMDB
         public string id { get; set; }
     }
 
-    public class Release_Dates
+    public sealed class Release_Dates
     {
         public ReleaseResult[] results { get; set; }
     }
 
-    public class ReleaseResult
+    public sealed class ReleaseResult
     {
         public string iso_3166_1 { get; set; }
         public ReleaseDate[] release_dates { get; set; }
     }
 
-    public class ReleaseDate
+    public sealed class ReleaseDate
     {
         public string certification { get; set; }
         public string iso_639_1 { get; set; }
@@ -127,13 +127,13 @@ namespace MovieStore.Models.TMDB
         public int type { get; set; }
     }
 
-    public class Genre
+    public sealed class Genre
     {
         public int id { get; set; }
         public string name { get; set; }
     }
 
-    public class Production_Companies
+    public sealed class Production_Companies
     {
         public int id { get; set; }
         public string logo_path { get; set; }
@@ -141,13 +141,13 @@ namespace MovieStore.Models.TMDB
         public string origin_country { get; set; }
     }
 
-    public class Production_Countries
+    public sealed class Production_Countries
     {
         public string iso_3166_1 { get; set; }
         public string name { get; set; }
     }
 
-    public class Spoken_Languages
+    public sealed class Spoken_Languages
     {
         public string english_name { get; set; }
         public string iso_639_1 { get; set; }

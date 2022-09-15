@@ -11,7 +11,7 @@ using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Controllers
 {
-    public class MoviesController : Controller
+    public sealed class MoviesController : Controller
     {
         private readonly AppSettings _appSettings;
         private readonly ApplicationDbContext _context;

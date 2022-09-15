@@ -4,7 +4,7 @@ using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Controllers
 {
-    public class ActorsController : Controller
+    public sealed class ActorsController : Controller
     {
         private readonly IRemoteMovieService _tmdbMovieService;
         private readonly IDataMappingService _mappingService;

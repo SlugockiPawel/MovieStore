@@ -12,7 +12,7 @@ using MovieStore.Models.Settings;
 
 namespace MovieStore.Controllers
 {
-    public class CollectionsController : Controller
+    public sealed class CollectionsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly AppSettings _appSettings;

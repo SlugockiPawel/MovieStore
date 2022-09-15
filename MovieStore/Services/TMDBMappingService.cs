@@ -12,7 +12,7 @@ using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Services
 {
-    public class TMDBMappingService : IDataMappingService
+    public sealed class TMDBMappingService : IDataMappingService
     {
         private readonly AppSettings _appSettings;
         private readonly IImageService _imageService;

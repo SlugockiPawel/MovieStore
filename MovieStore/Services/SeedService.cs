@@ -10,7 +10,7 @@ using MovieStore.Models.Settings;
 
 namespace MovieStore.Services
 {
-    public class SeedService
+    public sealed class SeedService
     {
         private readonly AppSettings _appSettings;
         private readonly ApplicationDbContext _dbContext;

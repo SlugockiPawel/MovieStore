@@ -2,7 +2,7 @@ using System;
 
 namespace MovieStore.Models
 {
-    public class ErrorViewModel
+    public sealed class ErrorViewModel
     {
         public string RequestId { get; set; }
 

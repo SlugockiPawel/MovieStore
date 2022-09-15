@@ -2,7 +2,7 @@
 {
 
 
-    public class MovieSearch
+    public sealed class MovieSearch
     {
         public int page { get; set; }
         public MovieSearchResult[] results { get; set; }
@@ -10,7 +10,7 @@
         public int total_results { get; set; }
     }
 
-    public class MovieSearchResult
+    public sealed class MovieSearchResult
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }

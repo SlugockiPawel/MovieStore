@@ -4,7 +4,7 @@ using MovieStore.Models.TMDB;
 
 namespace MovieStore.Models.ViewModels
 {
-    public class LandingPageVM
+    public sealed class LandingPageVM
     {
         public List<Collection> CustomCollections { get; set; }
         public MovieSearch NowPlaying { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace MovieStore.Models.Database
 {
-    public class MovieCrew
+    public sealed class MovieCrew
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

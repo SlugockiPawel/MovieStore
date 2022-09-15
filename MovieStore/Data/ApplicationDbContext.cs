@@ -7,7 +7,7 @@ using MovieStore.Models.Database;
 
 namespace MovieStore.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public sealed class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

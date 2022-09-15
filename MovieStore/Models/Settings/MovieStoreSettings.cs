@@ -1,6 +1,6 @@
 ﻿namespace MovieStore.Models.Settings
 {
-    public class MovieStoreSettings
+    public sealed class MovieStoreSettings
     {
         public string TmDbApiKey { get; set; }
         public string DefaultBackdropSize { get; set;}
@@ -11,14 +11,14 @@
         public DefaultCredentials DefaultCredentials { get; set; }
     }
 
-    public class DefaultCredentials
+    public sealed class DefaultCredentials
     {
         public string Role { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }
 
-    public class DefaultCollection
+    public sealed class DefaultCollection
     {
         public string Name { get; set; }
         public string Description { get; set; }

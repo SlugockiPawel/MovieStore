@@ -8,7 +8,7 @@ using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Services
 {
-    public class BasicImageService : IImageService
+    public sealed class BasicImageService : IImageService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 

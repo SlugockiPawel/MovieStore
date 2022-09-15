@@ -9,7 +9,7 @@ using MovieStore.Models.Database;
 
 namespace MovieStore.Controllers
 {
-    public class MovieCollectionsController : Controller
+    public sealed class MovieCollectionsController : Controller
     {
         private readonly ApplicationDbContext _context;
 

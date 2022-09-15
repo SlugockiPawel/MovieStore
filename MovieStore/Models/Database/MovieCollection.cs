@@ -1,6 +1,6 @@
 ﻿namespace MovieStore.Models.Database
 {
-    public class MovieCollection
+    public sealed class MovieCollection
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

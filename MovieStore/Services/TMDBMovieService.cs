@@ -13,7 +13,7 @@ using MovieStore.Services.Interfaces;
 
 namespace MovieStore.Services
 {
-    public class TMDBMovieService : IRemoteMovieService
+    public sealed class TMDBMovieService : IRemoteMovieService
     {
         private readonly AppSettings _appSettings;
         private readonly IHttpClientFactory _httpClientFactory;

@@ -8,7 +8,7 @@ using MovieStore.Enums;
 
 namespace MovieStore.Models.Database
 {
-    public class Movie
+    public sealed class Movie
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

@@ -1,7 +1,7 @@
 ﻿namespace MovieStore.Models.TMDB
 {
 
-    public class ActorDetail
+    public sealed class ActorDetail
     {
         public bool adult { get; set; }
         public string[] also_known_as { get; set; }
